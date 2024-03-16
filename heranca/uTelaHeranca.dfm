@@ -12,6 +12,7 @@ object frmTelaHeranca: TfrmTelaHeranca
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 15
   object pgcPrincipal: TPageControl
     Left = 0
@@ -54,6 +55,7 @@ object frmTelaHeranca: TfrmTelaHeranca
         Width = 1107
         Height = 508
         Align = alClient
+        DataSource = dtsListagem
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -122,14 +124,27 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Fechar'
       TabOrder = 5
+      OnClick = btnFecharClick
     end
     object btnNavigator: TDBNavigator
       Left = 464
       Top = 12
       Width = 136
       Height = 25
+      DataSource = dtsListagem
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
       TabOrder = 6
     end
+  end
+  object QryListagem: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    Params = <>
+    Left = 828
+    Top = 50
+  end
+  object dtsListagem: TDataSource
+    DataSet = QryListagem
+    Left = 932
+    Top = 58
   end
 end
