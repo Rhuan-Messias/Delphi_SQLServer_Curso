@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/03/15 12:00:58.000.041,=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/15 12:35:43.000.258,=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 17:53:08.707,=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 17:54:37.548,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\uPrincipal.dfm=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/03/16 17:54:37.548,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\uPrincipal.pas=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 17:54:48.641,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Vendas.dproj=C:\Users\Cliente\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/03/16 18:15:19.308,=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 18:16:41.974,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\datamodule\uDTMConexao.pas=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 18:16:41.974,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\datamodule\uDTMConexao.dfm=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.dfm</Transaction>
+    <Transaction>2024/03/16 19:07:09.738,=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 19:08:17.191,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\heranca\uTelaHeranca.pas=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.pas</Transaction>
+    <Transaction>2024/03/16 19:08:17.191,D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\heranca\uTelaHeranca.dfm=D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
