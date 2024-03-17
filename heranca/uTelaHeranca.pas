@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ComCtrls, Vcl.ExtCtrls,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, uDTMConexao;
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, uDTMConexao, uEnum;
 
 type
   TfrmTelaHeranca = class(TForm)
@@ -36,6 +36,8 @@ type
     procedure btnApagarClick(Sender: TObject);
   private
     { Private declarations }
+    EstadoDoCadastro:TEstadoDoCadastro;
+
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
           btnGravar, btnApagar:TBitBtn; Navegador:TDBNavigator;
           pgcPrincipal:TPageControl; Flag:Boolean);
@@ -81,12 +83,16 @@ procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, false);
+
+  EstadoDoCadastro := ecInserir; // não preciso declarar pois é só um Type
 end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, false);
+
+  EstadoDoCadastro := ecAlterar;
 end;
 
 procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
@@ -94,6 +100,8 @@ begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, true);
   ControlarIndiceTab(pgcPrincipal, 0);
+
+  EstadoDoCadastro := ecNenhum;
 end;
 
 procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
@@ -102,6 +110,7 @@ begin
                   btnNavigator, pgcPrincipal, true);
   // quando clicar em cancelar, a tab vai para o indice 0 novamente
   ControlarIndiceTab(pgcPrincipal, 0);
+  EstadoDoCadastro := ecNenhum;
 
 end;
 
@@ -112,9 +121,22 @@ end;
 
 procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-                  btnNavigator, pgcPrincipal, true);
-  ControlarIndiceTab(pgcPrincipal, 0);
+  Try
+    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                    btnNavigator, pgcPrincipal, true);
+    ControlarIndiceTab(pgcPrincipal, 0);
+    if (EstadoDoCadastro = ecInserir) then
+      showmessage('Inserir')
+    else if EstadoDoCadastro = ecAlterar then
+      showmessage('Alterado')
+    else
+      showmessage('Nada Aconteceu');
+
+
+  Finally
+    EstadoDoCadastro := ecNenhum;
+  End;
+
 end;
 
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
