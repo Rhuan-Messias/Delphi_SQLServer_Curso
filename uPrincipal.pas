@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDTMConexao;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uDTMConexao, uCadCategorias, Enter;
 
 type
   TfrmPrincipal = class(TForm)
@@ -26,8 +26,11 @@ type
     N6: TMenuItem;
     procedure mnuFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure CATEGORIA1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    TeclaEnter: TMREnter;
   public
     { Public declarations }
   end;
@@ -38,6 +41,20 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPrincipal.CATEGORIA1Click(Sender: TObject);
+begin
+  //Aqui vou importar o formulário de categoria, na unit uCadCategorias
+  frmCadCategoria := TfrmCadCategoria.Create(self); // vou criar na memória
+  frmCadCategoria.ShowModal; //vou mostrar na tela
+  frmCadCategoria.Release; // depois de fechar o release tira da memória
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FreeAndNil (TeclaEnter);
+  FreeAndNil (dtmPrincipal);
+end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
@@ -67,6 +84,11 @@ begin
     Database := 'vendas';
     Connected := true;
   end;
+
+  TeclaEnter := TMREnter.Create(self);
+  TeclaEnter.FocusEnabled := true;
+  TeclaEnter.FocusColor := clInfoBk;
+
 end;
 
 procedure TfrmPrincipal.mnuFecharClick(Sender: TObject);

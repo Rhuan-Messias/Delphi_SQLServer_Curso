@@ -22,7 +22,8 @@ object frmTelaHeranca: TfrmTelaHeranca
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 560
+    ExplicitWidth = 1111
+    ExplicitHeight = 602
     object tabListagem: TTabSheet
       Caption = 'Listagem'
       object pnlListagemTopo: TPanel
@@ -32,13 +33,15 @@ object frmTelaHeranca: TfrmTelaHeranca
         Height = 65
         Align = alTop
         TabOrder = 0
+        ExplicitWidth = 1103
         object mskPesquisar: TMaskEdit
           Left = 16
           Top = 18
           Width = 537
           Height = 23
           TabOrder = 0
-          Text = 'Digite sua pesquisa'
+          Text = ''
+          TextHint = 'Digite sua pesquisa'
         end
         object btnPesquisar: TBitBtn
           Left = 576
@@ -77,6 +80,7 @@ object frmTelaHeranca: TfrmTelaHeranca
     Align = alBottom
     TabOrder = 1
     ExplicitTop = 602
+    ExplicitWidth = 1111
     object btnNovo: TBitBtn
       Left = 20
       Top = 12

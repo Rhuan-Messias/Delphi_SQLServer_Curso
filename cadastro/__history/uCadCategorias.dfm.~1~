@@ -1,0 +1,9 @@
+inherited frmTelaHeranca1: TfrmTelaHeranca1
+  Caption = 'frmTelaHeranca1'
+  TextHeight = 15
+  inherited pnlRodape: TPanel
+    inherited btnNavigator: TDBNavigator
+      Hints.Strings = ()
+    end
+  end
+end

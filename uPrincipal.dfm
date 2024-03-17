@@ -12,6 +12,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Style = []
   Menu = mainPrincipal
   WindowState = wsMaximized
+  OnClose = FormClose
   OnCreate = FormCreate
   TextHeight = 15
   object mainPrincipal: TMainMenu
@@ -27,6 +28,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object CATEGORIA1: TMenuItem
         Caption = 'CATEGORIA'
+        OnClick = CATEGORIA1Click
       end
       object CATEGORIA2: TMenuItem
         Caption = 'PRODUTO'
