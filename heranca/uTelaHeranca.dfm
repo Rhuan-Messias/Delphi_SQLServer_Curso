@@ -3,8 +3,8 @@ object frmTelaHeranca: TfrmTelaHeranca
   Top = 0
   BorderStyle = bsDialog
   Caption = 'INFORME AQUI O TITULO'
-  ClientHeight = 651
-  ClientWidth = 1115
+  ClientHeight = 577
+  ClientWidth = 1041
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,8 +17,8 @@ object frmTelaHeranca: TfrmTelaHeranca
   object pgcPrincipal: TPageControl
     Left = 0
     Top = 0
-    Width = 1115
-    Height = 603
+    Width = 1041
+    Height = 529
     ActivePage = tabListagem
     Align = alClient
     TabOrder = 0
@@ -29,7 +29,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       object pnlListagemTopo: TPanel
         Left = 0
         Top = 0
-        Width = 1107
+        Width = 1033
         Height = 65
         Align = alTop
         TabOrder = 0
@@ -55,8 +55,8 @@ object frmTelaHeranca: TfrmTelaHeranca
       object grdListagem: TDBGrid
         Left = 0
         Top = 65
-        Width = 1107
-        Height = 508
+        Width = 1033
+        Height = 434
         Align = alClient
         DataSource = dtsListagem
         TabOrder = 1
@@ -74,8 +74,8 @@ object frmTelaHeranca: TfrmTelaHeranca
   end
   object pnlRodape: TPanel
     Left = 0
-    Top = 603
-    Width = 1115
+    Top = 529
+    Width = 1041
     Height = 48
     Align = alBottom
     TabOrder = 1
@@ -88,6 +88,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Novo'
       TabOrder = 0
+      OnClick = btnNovoClick
     end
     object btnAlterar: TBitBtn
       Left = 108
@@ -96,6 +97,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Alterar'
       TabOrder = 1
+      OnClick = btnAlterarClick
     end
     object btnCancelar: TBitBtn
       Left = 196
@@ -104,6 +106,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Cancelar'
       TabOrder = 2
+      OnClick = btnCancelarClick
     end
     object btnGravar: TBitBtn
       Left = 284
@@ -112,6 +115,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = '&Gravar'
       TabOrder = 3
+      OnClick = btnGravarClick
     end
     object btnApagar: TBitBtn
       Left = 372
@@ -120,9 +124,10 @@ object frmTelaHeranca: TfrmTelaHeranca
       Height = 25
       Caption = 'Apaga&r'
       TabOrder = 4
+      OnClick = btnApagarClick
     end
     object btnFechar: TBitBtn
-      Left = 1020
+      Left = 940
       Top = 12
       Width = 75
       Height = 25
@@ -143,12 +148,12 @@ object frmTelaHeranca: TfrmTelaHeranca
   object QryListagem: TZQuery
     Connection = dtmPrincipal.ConexaoDB
     Params = <>
-    Left = 828
-    Top = 50
+    Left = 780
+    Top = 34
   end
   object dtsListagem: TDataSource
     DataSet = QryListagem
-    Left = 932
-    Top = 58
+    Left = 852
+    Top = 34
   end
 end
