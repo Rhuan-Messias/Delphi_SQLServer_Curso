@@ -27,6 +27,7 @@ type
     btnNavigator: TDBNavigator;
     QryListagem: TZQuery;
     dtsListagem: TDataSource;
+    lblindice: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -34,6 +35,8 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnApagarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     EstadoDoCadastro:TEstadoDoCadastro;
@@ -139,6 +142,11 @@ begin
 
 end;
 
+procedure TfrmTelaHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  QryListagem.Close;
+end;
+
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
 begin
   // A propriedade Connection do componente TZQuery recebe a componente ConexaoDB
@@ -151,6 +159,15 @@ begin
 
 
 
+end;
+
+
+procedure TfrmTelaHeranca.FormShow(Sender: TObject);
+begin
+  if QryListagem.SQL.Text<>EmptyStr then
+  begin
+    QryListagem.Open;
+  end;
 end;
 
 end.
