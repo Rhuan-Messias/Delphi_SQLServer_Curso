@@ -1,19 +1,17 @@
 inherited frmCadCategoria: TfrmCadCategoria
   Caption = 'Cadastro de Categorias'
-  ClientWidth = 813
-  ExplicitWidth = 825
+  ClientWidth = 1115
+  ExplicitWidth = 1127
   TextHeight = 15
   inherited pgcPrincipal: TPageControl
-    Width = 813
-    ExplicitWidth = 809
+    Width = 1115
     inherited tabListagem: TTabSheet
-      ExplicitWidth = 805
+      ExplicitWidth = 1107
       inherited pnlListagemTopo: TPanel
-        Width = 805
-        ExplicitWidth = 801
+        Width = 1107
       end
       inherited grdListagem: TDBGrid
-        Width = 805
+        Width = 1107
         Columns = <
           item
             Expanded = False
@@ -30,16 +28,11 @@ inherited frmCadCategoria: TfrmCadCategoria
       end
     end
     inherited tabManutencao: TTabSheet
-      ExplicitWidth = 805
+      ExplicitWidth = 1107
     end
   end
   inherited pnlRodape: TPanel
-    Width = 813
-    ExplicitWidth = 809
-    inherited btnFechar: TBitBtn
-      Left = 692
-      ExplicitLeft = 688
-    end
+    Width = 1115
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
     end

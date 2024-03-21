@@ -74,7 +74,7 @@ begin
   dtmPrincipal := TdtmPrincipal.Create(Self);
   with dtmPrincipal.ConexaoDB do
   begin
-    SQLHourGlass := false;
+    SQLHourGlass := true;
     Protocol := 'mssql';
     LibraryLocation := 'D:\Rhuan\Delphi_curso_25horas\Meu Código\Delphi_SQLServer_Curso\ntwdblib.dll';
     HostName := '.\SERVERCURSO';

@@ -47,7 +47,6 @@ type
           pgcPrincipal:TPageControl; Flag:Boolean);
     procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
     function RetornarCampoTraduzido(Campo: String): string;
-    procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
   public
     { Public declarations }
     IndiceAtual:string;
@@ -95,12 +94,9 @@ begin
       Result := QryListagem.Fields[i].DisplayLabel; // retorna isso para a function
       break;
     end;
-  end;
-end;
 
-procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel:TLabel);
-begin
-  aLabel.Caption := RetornarCampoTraduzido(Campo);
+  end;
+
 end;
 
 //procedures de botoes
@@ -188,8 +184,6 @@ procedure TfrmTelaHeranca.FormShow(Sender: TObject);
 begin
   if QryListagem.SQL.Text<>EmptyStr then
   begin
-    QryListagem.IndexFieldNames := IndiceAtual;
-    ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
 end;
@@ -198,7 +192,7 @@ procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
 begin
   IndiceAtual := Column.FieldName;
   QryListagem.IndexFieldNames := IndiceAtual;
-  ExibirLabelIndice(IndiceAtual, lblIndice);
+  lblIndice.Caption := RetornarCampoTraduzido(IndiceAtual)
 end;
 
 end.

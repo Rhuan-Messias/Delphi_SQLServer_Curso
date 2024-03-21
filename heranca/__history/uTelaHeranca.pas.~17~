@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.DBCtrls, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ComCtrls, Vcl.ExtCtrls,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, uDTMConexao;
+  ZAbstractRODataset, ZAbstractDataset, ZDataset, uDTMConexao, uEnum;
 
 type
   TfrmTelaHeranca = class(TForm)
@@ -27,6 +27,7 @@ type
     btnNavigator: TDBNavigator;
     QryListagem: TZQuery;
     dtsListagem: TDataSource;
+    lblindice: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -34,13 +35,22 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnApagarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure grdListagemTitleClick(Column: TColumn);
   private
     { Private declarations }
+    EstadoDoCadastro:TEstadoDoCadastro;
+
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
           btnGravar, btnApagar:TBitBtn; Navegador:TDBNavigator;
           pgcPrincipal:TPageControl; Flag:Boolean);
+    procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
+    function RetornarCampoTraduzido(Campo: String): string;
+    procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
   public
     { Public declarations }
+    IndiceAtual:string;
   end;
 
 var
@@ -50,12 +60,10 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
-begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-                  btnNavigator, pgcPrincipal, false);
-end;
-
+//Rotinas de Controle de Tela
+  // Nos argumentos, posso usar virgula quando declarar os do mesmo tipo
+  // uso ponto e virgula quando mudo o tipo, eu posso por qualquer nome,
+  // coloquei o dos botoes por facilidade na leitura
 procedure TfrmTelaHeranca.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
           btnGravar, btnApagar:TBitBtn; Navegador:TDBNavigator;
           pgcPrincipal:TPageControl; Flag:Boolean);
@@ -69,23 +77,66 @@ begin
   btnGravar.Enabled   := not(Flag);
 end;
 
+procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPrincipal: TPageControl;
+                                             Indice : Integer);
+begin
+  // se o indice do page control está visível
+  if(pgcPrincipal.Pages[Indice].TabVisible) then
+    pgcPrincipal.TabIndex := Indice;
+end;
+
+function TfrmtelaHeranca.RetornarCampoTraduzido(Campo:String):string;
+var i:Integer;
+begin
+  for I := 0 to QryListagem.Fields.Count-1 do
+  begin
+    if QryListagem.Fields[i].fieldname = Campo then
+    begin
+      Result := QryListagem.Fields[i].DisplayLabel; // retorna isso para a function
+      break;
+    end;
+  end;
+end;
+
+procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel:TLabel);
+begin
+  aLabel.Caption := RetornarCampoTraduzido(Campo);
+end;
+
+//procedures de botoes
+procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
+begin
+  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                  btnNavigator, pgcPrincipal, false);
+
+  EstadoDoCadastro := ecInserir; // não preciso declarar pois é só um Type
+end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, false);
+
+  EstadoDoCadastro := ecAlterar;
 end;
 
 procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, true);
+  ControlarIndiceTab(pgcPrincipal, 0);
+
+  EstadoDoCadastro := ecNenhum;
 end;
 
 procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
 begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, true);
+  // quando clicar em cancelar, a tab vai para o indice 0 novamente
+  ControlarIndiceTab(pgcPrincipal, 0);
+  EstadoDoCadastro := ecNenhum;
+
 end;
 
 procedure TfrmTelaHeranca.btnFecharClick(Sender: TObject);
@@ -95,8 +146,27 @@ end;
 
 procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
-                  btnNavigator, pgcPrincipal, true);
+  Try
+    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                    btnNavigator, pgcPrincipal, true);
+    ControlarIndiceTab(pgcPrincipal, 0);
+    if (EstadoDoCadastro = ecInserir) then
+      showmessage('Inserir')
+    else if EstadoDoCadastro = ecAlterar then
+      showmessage('Alterado')
+    else
+      showmessage('Nada Aconteceu');
+
+
+  Finally
+    EstadoDoCadastro := ecNenhum;
+  End;
+
+end;
+
+procedure TfrmTelaHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  QryListagem.Close;
 end;
 
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
@@ -111,6 +181,22 @@ begin
 
 
 
+end;
+
+
+procedure TfrmTelaHeranca.FormShow(Sender: TObject);
+begin
+  if QryListagem.SQL.Text<>EmptyStr then
+  begin
+    QryListagem.Open;
+  end;
+end;
+
+procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
+begin
+  IndiceAtual := Column.FieldName;
+  QryListagem.IndexFieldNames := IndiceAtual;
+  ExibirLabelIndice(IndiceAtual, lblIndice);
 end;
 
 end.

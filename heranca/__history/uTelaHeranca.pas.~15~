@@ -48,6 +48,7 @@ type
     procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
   public
     { Public declarations }
+    IndiceAtual:string;
   end;
 
 var
@@ -77,7 +78,7 @@ end;
 procedure TfrmTelaHeranca.ControlarIndiceTab(pgcPrincipal: TPageControl;
                                              Indice : Integer);
 begin
-  // se o indice do page control est√° vis√≠vel
+  // se o indice do page control est· visÌvel
   if(pgcPrincipal.Pages[Indice].TabVisible) then
     pgcPrincipal.TabIndex := Indice;
 end;
@@ -88,7 +89,7 @@ begin
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, false);
 
-  EstadoDoCadastro := ecInserir; // n√£o preciso declarar pois √© s√≥ um Type
+  EstadoDoCadastro := ecInserir; // n„o preciso declarar pois È sÛ um Type
 end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
@@ -173,7 +174,8 @@ end;
 
 procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
 begin
-  showmessage(Column.FieldName);
+  IndiceAtual := Column.FieldName;
+  QryListagem.IndexFieldNames := IndiceAtual;
 end;
 
 end.

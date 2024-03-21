@@ -189,7 +189,6 @@ begin
   if QryListagem.SQL.Text<>EmptyStr then
   begin
     QryListagem.IndexFieldNames := IndiceAtual;
-    ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
 end;
