@@ -35,6 +35,10 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnApagarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure grdListagemTitleClick(Column: TColumn);
+    procedure mskPesquisarChange(Sender: TObject);
   private
     { Private declarations }
     EstadoDoCadastro:TEstadoDoCadastro;
@@ -43,8 +47,12 @@ type
           btnGravar, btnApagar:TBitBtn; Navegador:TDBNavigator;
           pgcPrincipal:TPageControl; Flag:Boolean);
     procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
+    function RetornarCampoTraduzido(Campo: String): string;
+    procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
   public
     { Public declarations }
+    IndiceAtual:string;
+    function Excluir:Boolean; virtual;
   end;
 
 var
@@ -53,6 +61,8 @@ var
 implementation
 
 {$R *.dfm}
+
+{$region 'Function and Procedures'}
 
 //Rotinas de Controle de Tela
   // Nos argumentos, posso usar virgula quando declarar os do mesmo tipo
@@ -78,6 +88,33 @@ begin
   if(pgcPrincipal.Pages[Indice].TabVisible) then
     pgcPrincipal.TabIndex := Indice;
 end;
+
+function TfrmtelaHeranca.RetornarCampoTraduzido(Campo:String):string;
+var i:Integer;
+begin
+  for I := 0 to QryListagem.Fields.Count-1 do
+  begin
+    if lowercase(QryListagem.Fields[i].fieldname) = lowercase(Campo) then
+    begin
+      Result := QryListagem.Fields[i].DisplayLabel; // retorna isso para a function
+      break;
+    end;
+  end;
+end;
+
+procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel:TLabel);
+begin
+  aLabel.Caption := RetornarCampoTraduzido(Campo);
+end;
+{$endregion}
+
+{$region 'MÉTODOS VIRTUAIS'}
+function TfrmTelaHeranca.Excluir: Boolean;
+begin
+  ShowMessage('Deletado');
+  Result := True;
+end;
+{$endregion}
 
 //procedures de botoes
 procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
@@ -140,6 +177,11 @@ begin
 
 end;
 
+procedure TfrmTelaHeranca.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  QryListagem.Close;
+end;
+
 procedure TfrmTelaHeranca.FormCreate(Sender: TObject);
 begin
   // A propriedade Connection do componente TZQuery recebe a componente ConexaoDB
@@ -149,10 +191,38 @@ begin
   QryListagem.Connection := dtmPrincipal.ConexaoDB;
   dtsListagem.DataSet := QryListagem;
   grdListagem.DataSource := dtsListagem;
+  grdListagem.Options := [dgTitles,dgIndicator,dgColumnResize,dgColLines,
+                          dgRowLines,dgTabs,dgRowSelect,dgAlwaysShowSelection,
+                          dgCancelOnExit,dgTitleClick,dgTitleHotTrack];
 
 
 
 end;
 
+
+procedure TfrmTelaHeranca.FormShow(Sender: TObject);
+begin
+  if QryListagem.SQL.Text<>EmptyStr then
+  begin
+    QryListagem.IndexFieldNames := IndiceAtual;
+    ExibirLabelIndice(IndiceAtual, lblIndice);
+    QryListagem.Open;
+  end;
+  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                    btnNavigator, pgcPrincipal, true);
+end;
+
+procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
+begin
+  IndiceAtual := Column.FieldName;
+  QryListagem.IndexFieldNames := IndiceAtual;
+  ExibirLabelIndice(IndiceAtual, lblIndice);
+end;
+
+procedure TfrmTelaHeranca.mskPesquisarChange(Sender: TObject);
+begin
+  // Vai fazer com o que for digitado seja buscado no grid
+  QryListagem.Locate(IndiceAtual, TMaskEdit(Sender).Text, [loPartialKey])
+end;
 
 end.

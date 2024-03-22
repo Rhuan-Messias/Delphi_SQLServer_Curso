@@ -38,6 +38,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure grdListagemTitleClick(Column: TColumn);
+    procedure mskPesquisarChange(Sender: TObject);
   private
     { Private declarations }
     EstadoDoCadastro:TEstadoDoCadastro;
@@ -51,6 +52,7 @@ type
   public
     { Public declarations }
     IndiceAtual:string;
+    function Excluir:Boolean; virtual;
   end;
 
 var
@@ -59,6 +61,8 @@ var
 implementation
 
 {$R *.dfm}
+
+{$region 'Function and Procedures'}
 
 //Rotinas de Controle de Tela
   // Nos argumentos, posso usar virgula quando declarar os do mesmo tipo
@@ -90,7 +94,7 @@ var i:Integer;
 begin
   for I := 0 to QryListagem.Fields.Count-1 do
   begin
-    if QryListagem.Fields[i].fieldname = Campo then
+    if lowercase(QryListagem.Fields[i].fieldname) = lowercase(Campo) then
     begin
       Result := QryListagem.Fields[i].DisplayLabel; // retorna isso para a function
       break;
@@ -102,6 +106,15 @@ procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel:TLabel);
 begin
   aLabel.Caption := RetornarCampoTraduzido(Campo);
 end;
+{$endregion}
+
+{$region 'MÉTODOS VIRTUAIS'}
+function TfrmTelaHeranca.Excluir: Boolean;
+begin
+  ShowMessage('Deletado');
+  Result := True;
+end;
+{$endregion}
 
 //procedures de botoes
 procedure TfrmTelaHeranca.btnNovoClick(Sender: TObject);
@@ -122,11 +135,13 @@ end;
 
 procedure TfrmTelaHeranca.btnApagarClick(Sender: TObject);
 begin
-  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+  if Excluir then
+  begin
+    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                   btnNavigator, pgcPrincipal, true);
-  ControlarIndiceTab(pgcPrincipal, 0);
-
-  EstadoDoCadastro := ecNenhum;
+    ControlarIndiceTab(pgcPrincipal, 0);
+    EstadoDoCadastro := ecNenhum;
+  end;
 end;
 
 procedure TfrmTelaHeranca.btnCancelarClick(Sender: TObject);
@@ -178,6 +193,9 @@ begin
   QryListagem.Connection := dtmPrincipal.ConexaoDB;
   dtsListagem.DataSet := QryListagem;
   grdListagem.DataSource := dtsListagem;
+  grdListagem.Options := [dgTitles,dgIndicator,dgColumnResize,dgColLines,
+                          dgRowLines,dgTabs,dgRowSelect,dgAlwaysShowSelection,
+                          dgCancelOnExit,dgTitleClick,dgTitleHotTrack];
 
 
 
@@ -192,6 +210,8 @@ begin
     ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
+  ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+                    btnNavigator, pgcPrincipal, true);
 end;
 
 procedure TfrmTelaHeranca.grdListagemTitleClick(Column: TColumn);
@@ -199,6 +219,12 @@ begin
   IndiceAtual := Column.FieldName;
   QryListagem.IndexFieldNames := IndiceAtual;
   ExibirLabelIndice(IndiceAtual, lblIndice);
+end;
+
+procedure TfrmTelaHeranca.mskPesquisarChange(Sender: TObject);
+begin
+  // Vai fazer com o que for digitado seja buscado no grid
+  QryListagem.Locate(IndiceAtual, TMaskEdit(Sender).Text, [loPartialKey])
 end;
 
 end.

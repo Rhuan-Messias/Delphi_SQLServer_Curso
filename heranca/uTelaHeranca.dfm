@@ -51,6 +51,7 @@ object frmTelaHeranca: TfrmTelaHeranca
           TabOrder = 0
           Text = ''
           TextHint = 'Digite sua pesquisa'
+          OnChange = mskPesquisarChange
         end
         object btnPesquisar: TBitBtn
           Left = 568
@@ -59,6 +60,7 @@ object frmTelaHeranca: TfrmTelaHeranca
           Height = 25
           Caption = '&Pesquisar'
           TabOrder = 1
+          Visible = False
         end
       end
       object grdListagem: TDBGrid
@@ -68,6 +70,7 @@ object frmTelaHeranca: TfrmTelaHeranca
         Height = 317
         Align = alClient
         DataSource = dtsListagem
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -140,7 +143,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       OnClick = btnApagarClick
     end
     object btnFechar: TBitBtn
-      Left = 730
+      Left = 726
       Top = 12
       Width = 75
       Height = 25
@@ -148,7 +151,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Caption = '&Fechar'
       TabOrder = 5
       OnClick = btnFecharClick
-      ExplicitLeft = 726
+      ExplicitLeft = 722
     end
     object btnNavigator: TDBNavigator
       Left = 464
