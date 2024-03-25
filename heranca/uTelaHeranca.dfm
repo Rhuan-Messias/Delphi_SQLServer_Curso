@@ -143,7 +143,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       OnClick = btnApagarClick
     end
     object btnFechar: TBitBtn
-      Left = 726
+      Left = 722
       Top = 12
       Width = 75
       Height = 25
@@ -151,7 +151,7 @@ object frmTelaHeranca: TfrmTelaHeranca
       Caption = '&Fechar'
       TabOrder = 5
       OnClick = btnFecharClick
-      ExplicitLeft = 722
+      ExplicitLeft = 718
     end
     object btnNavigator: TDBNavigator
       Left = 464

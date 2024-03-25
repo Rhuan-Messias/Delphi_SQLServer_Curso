@@ -53,6 +53,7 @@ type
     { Public declarations }
     IndiceAtual:string;
     function Excluir:Boolean; virtual;
+    function Gravar(EstadoDoCadastro:TEstadoDoCadastro):Boolean; virtual;
   end;
 
 var
@@ -114,6 +115,15 @@ begin
   ShowMessage('Deletado');
   Result := True;
 end;
+
+function TfrmTelaHeranca.Gravar(EstadoDoCadastro: TEstadoDoCadastro): Boolean;
+begin
+  if (EstadoDoCadastro = ecInserir) then
+    showmessage('Inserir')
+  else if (EstadoDoCadastro = ecAlterar) then
+    showmessage('Alterado');
+  Result := True;
+end;
 {$endregion}
 
 //procedures de botoes
@@ -162,17 +172,12 @@ end;
 procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
   Try
-    ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
+    if Gravar(EstadoDoCadastro) then
+    begin
+      ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                     btnNavigator, pgcPrincipal, true);
-    ControlarIndiceTab(pgcPrincipal, 0);
-    if (EstadoDoCadastro = ecInserir) then
-      showmessage('Inserir')
-    else if EstadoDoCadastro = ecAlterar then
-      showmessage('Alterado')
-    else
-      showmessage('Nada Aconteceu');
-
-
+      ControlarIndiceTab(pgcPrincipal, 0);
+    end;
   Finally
     EstadoDoCadastro := ecNenhum;
   End;
