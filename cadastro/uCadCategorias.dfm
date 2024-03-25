@@ -31,14 +31,40 @@ inherited frmCadCategoria: TfrmCadCategoria
     end
     inherited tabManutencao: TTabSheet
       ExplicitWidth = 805
+      object edtCategoriaid: TLabeledEdit
+        Left = 3
+        Top = 40
+        Width = 121
+        Height = 23
+        EditLabel.Width = 39
+        EditLabel.Height = 15
+        EditLabel.Caption = 'C'#243'digo'
+        MaxLength = 10
+        NumbersOnly = True
+        TabOrder = 0
+        Text = ''
+      end
+      object edtDescricao: TLabeledEdit
+        Tag = 1
+        Left = 0
+        Top = 96
+        Width = 433
+        Height = 23
+        EditLabel.Width = 51
+        EditLabel.Height = 15
+        EditLabel.Caption = 'Descri'#231#227'o'
+        MaxLength = 30
+        TabOrder = 1
+        Text = ''
+      end
     end
   end
   inherited pnlRodape: TPanel
     Width = 813
     ExplicitWidth = 809
     inherited btnFechar: TBitBtn
-      Left = 692
-      ExplicitLeft = 688
+      Left = 688
+      ExplicitLeft = 684
     end
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()

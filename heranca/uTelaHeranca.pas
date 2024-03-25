@@ -49,6 +49,7 @@ type
     procedure ControlarIndiceTab(pgcPrincipal: TPageControl; Indice: Integer);
     function RetornarCampoTraduzido(Campo: String): string;
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
+    function ExisteCampoObrigatorio: Boolean;
   public
     { Public declarations }
     IndiceAtual:string;
@@ -106,6 +107,28 @@ end;
 procedure TfrmTelaHeranca.ExibirLabelIndice(Campo:string; aLabel:TLabel);
 begin
   aLabel.Caption := RetornarCampoTraduzido(Campo);
+end;
+
+function TfrmTelaHeranca.ExisteCampoObrigatorio:Boolean;
+  var i:integer;
+  //Lembre-se de colocar a propriedade Tag = 1 para os TLabeledEdit Obrigatorios
+begin
+  Result := False;
+  for I := 0 to ComponentCount -1 do
+  begin
+    if (Components[i] is TLabeledEdit) then
+    begin
+      if (TLabeledEdit(Components[i]).Tag = 1) and
+         (TLabeledEdit(Components[i]).Text = EmptyStr) then
+      begin
+        MessageDlg(TLabeledEdit(Components[i]).EditLabel.Caption +
+                    ' é um campo obrigatório', mtInformation, [mbOK],0);
+        TLabeledEdit(Components[i]).SetFocus;
+        Result := True;
+        Break;
+      end;
+    end;
+  end;
 end;
 {$endregion}
 
@@ -171,6 +194,11 @@ end;
 
 procedure TfrmTelaHeranca.btnGravarClick(Sender: TObject);
 begin
+  //se a funcao ExisteCampoObrigatorio retorna true, aborta pq tem
+  //campo em branco
+  if(ExisteCampoObrigatorio)=true then
+    abort;
+
   Try
     if Gravar(EstadoDoCadastro) then
     begin
@@ -215,6 +243,7 @@ begin
     ExibirLabelIndice(IndiceAtual, lblIndice);
     QryListagem.Open;
   end;
+  ControlarIndiceTab(pgcPrincipal,0);
   ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                     btnNavigator, pgcPrincipal, true);
 end;

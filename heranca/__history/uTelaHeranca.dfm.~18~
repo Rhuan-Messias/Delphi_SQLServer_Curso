@@ -1,0 +1,177 @@
+object frmTelaHeranca: TfrmTelaHeranca
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'INFORME AQUI O TITULO'
+  ClientHeight = 455
+  ClientWidth = 835
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Position = poScreenCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  TextHeight = 15
+  object pgcPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 835
+    Height = 407
+    ActivePage = tabListagem
+    Align = alClient
+    TabOrder = 0
+    ExplicitWidth = 831
+    ExplicitHeight = 406
+    object tabListagem: TTabSheet
+      Caption = 'Listagem'
+      object pnlListagemTopo: TPanel
+        Left = 0
+        Top = 0
+        Width = 827
+        Height = 60
+        Align = alTop
+        TabOrder = 0
+        ExplicitWidth = 823
+        object lblindice: TLabel
+          Left = 8
+          Top = 9
+          Width = 90
+          Height = 15
+          Caption = 'CamposPesquisa'
+        end
+        object mskPesquisar: TMaskEdit
+          Left = 8
+          Top = 30
+          Width = 537
+          Height = 23
+          TabOrder = 0
+          Text = ''
+          TextHint = 'Digite sua pesquisa'
+          OnChange = mskPesquisarChange
+        end
+        object btnPesquisar: TBitBtn
+          Left = 568
+          Top = 29
+          Width = 105
+          Height = 25
+          Caption = '&Pesquisar'
+          TabOrder = 1
+          Visible = False
+        end
+      end
+      object grdListagem: TDBGrid
+        Left = 0
+        Top = 60
+        Width = 827
+        Height = 317
+        Align = alClient
+        DataSource = dtsListagem
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
+        OnTitleClick = grdListagemTitleClick
+      end
+    end
+    object tabManutencao: TTabSheet
+      Caption = 'Manuten'#231#227'o'
+      ImageIndex = 1
+    end
+  end
+  object pnlRodape: TPanel
+    Left = 0
+    Top = 407
+    Width = 835
+    Height = 48
+    Align = alBottom
+    TabOrder = 1
+    ExplicitTop = 406
+    ExplicitWidth = 831
+    DesignSize = (
+      835
+      48)
+    object btnNovo: TBitBtn
+      Left = 20
+      Top = 12
+      Width = 75
+      Height = 25
+      Caption = '&Novo'
+      TabOrder = 0
+      OnClick = btnNovoClick
+    end
+    object btnAlterar: TBitBtn
+      Left = 108
+      Top = 12
+      Width = 75
+      Height = 25
+      Caption = '&Alterar'
+      TabOrder = 1
+      OnClick = btnAlterarClick
+    end
+    object btnCancelar: TBitBtn
+      Left = 196
+      Top = 12
+      Width = 75
+      Height = 25
+      Caption = '&Cancelar'
+      TabOrder = 2
+      OnClick = btnCancelarClick
+    end
+    object btnGravar: TBitBtn
+      Left = 284
+      Top = 12
+      Width = 75
+      Height = 25
+      Caption = '&Gravar'
+      TabOrder = 3
+      OnClick = btnGravarClick
+    end
+    object btnApagar: TBitBtn
+      Left = 372
+      Top = 12
+      Width = 75
+      Height = 25
+      Caption = 'Apaga&r'
+      TabOrder = 4
+      OnClick = btnApagarClick
+    end
+    object btnFechar: TBitBtn
+      Left = 722
+      Top = 12
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = '&Fechar'
+      TabOrder = 5
+      OnClick = btnFecharClick
+      ExplicitLeft = 718
+    end
+    object btnNavigator: TDBNavigator
+      Left = 464
+      Top = 12
+      Width = 136
+      Height = 25
+      DataSource = dtsListagem
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+      TabOrder = 6
+    end
+  end
+  object QryListagem: TZQuery
+    Connection = dtmPrincipal.ConexaoDB
+    Params = <>
+    Left = 700
+    Top = 34
+  end
+  object dtsListagem: TDataSource
+    DataSet = QryListagem
+    Left = 764
+    Top = 34
+  end
+end
