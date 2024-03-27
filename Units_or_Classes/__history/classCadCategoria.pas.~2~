@@ -1,0 +1,23 @@
+unit classCadCategoria;
+
+interface
+
+uses System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs; //lista units
+
+type
+  TCategoria = class //Declaração do tipo da Classe
+  private
+    //Variaveis privada somente dentro da classe
+  public
+    constructor Create; //Construtor da Classe
+    Destructor Destroy; override; // Destroi a classe, usar o override por causa
+                                  // de sobrescrever
+    //Variaveis publicas que pode ser trabalhada fora da classe
+  published
+    //Variaveis Publicas utilizadas para propriedades da classe
+    //para fornecer informações em runtime
+  end;
+
+implementation
+
+end.

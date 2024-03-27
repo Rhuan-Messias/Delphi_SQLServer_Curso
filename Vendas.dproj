@@ -119,6 +119,7 @@
         </DCCReference>
         <DCCReference Include="terceiros\Enter.pas"/>
         <DCCReference Include="heranca\uEnum.pas"/>
+        <DCCReference Include="Units_or_Classes\classCadCategoria.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

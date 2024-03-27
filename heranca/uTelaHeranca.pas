@@ -52,6 +52,7 @@ type
     procedure ExibirLabelIndice(Campo: string; aLabel: TLabel);
     function ExisteCampoObrigatorio: Boolean;
     procedure DesabilitarEditPK;
+    procedure LimparEdits;
   public
     { Public declarations }
     IndiceAtual:string;
@@ -153,6 +154,18 @@ begin
     end;
   end;
 end;
+
+procedure TfrmTelaHeranca.LimparEdits;
+var i:integer;
+begin
+  for i := 0 to ComponentCount -1 do
+    begin
+      if (Components[i] is TLabeledEdit) then
+        TLabeledEdit(Components[i]).Text := EmptyStr
+      else if (Components[i] is TEdit) then
+        TEdit(Components[i]).Text := '';//dois jeitos de limpar a linha EmptyStr ou ''
+    end;
+end;
 {$endregion}
 
 {$region 'MÉTODOS VIRTUAIS'}
@@ -179,6 +192,7 @@ begin
                   btnNavigator, pgcPrincipal, false);
 
   EstadoDoCadastro := ecInserir; // não preciso declarar pois é só um Type
+  LimparEdits;
 end;
 
 procedure TfrmTelaHeranca.btnAlterarClick(Sender: TObject);
@@ -197,6 +211,7 @@ begin
       ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                     btnNavigator, pgcPrincipal, true);
       ControlarIndiceTab(pgcPrincipal, 0);
+      LimparEdits;
     end
     else
     begin
@@ -214,6 +229,7 @@ begin
   // quando clicar em cancelar, a tab vai para o indice 0 novamente
   ControlarIndiceTab(pgcPrincipal, 0);
   EstadoDoCadastro := ecNenhum;
+  LimparEdits;
 
 end;
 
@@ -236,6 +252,7 @@ begin
                     btnNavigator, pgcPrincipal, true);
       ControlarIndiceTab(pgcPrincipal, 0);
       EstadoDoCadastro := ecNenhum;
+      LimparEdits;
     end
     else
     begin

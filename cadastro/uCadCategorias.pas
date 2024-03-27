@@ -3,10 +3,11 @@ unit uCadCategorias;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTelaHeranca, Data.DB,
-  ZAbstractRODataset, ZAbstractDataset, ZDataset, Vcl.DBCtrls, Vcl.Grids,
-  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.ExtCtrls, Vcl.ComCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  uTelaHeranca, Data.DB, ZAbstractRODataset, ZAbstractDataset, ZDataset,
+  Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask,
+  Vcl.ExtCtrls, Vcl.ComCtrls, classCadCategoria;
 
 type
   TfrmCadCategoria = class(TfrmTelaHeranca)
@@ -15,8 +16,10 @@ type
     edtCategoriaid: TLabeledEdit;
     edtDescricao: TLabeledEdit;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    oCategoria:TCategoria;
   public
     { Public declarations }
   end;
@@ -28,10 +31,21 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmCadCategoria.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  if Assigned(oCategoria) then
+  begin
+    FreeAndNil (oCategoria);
+  end;
+end;
+
 procedure TfrmCadCategoria.FormCreate(Sender: TObject);
 begin
   inherited;
-  IndiceAtual := 'Descricao'
+  oCategoria := Tcategoria.Create;
+  IndiceAtual := 'Descricao';
+
 
 end;
 
