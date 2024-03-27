@@ -10,7 +10,7 @@ inherited frmCadCategoria: TfrmCadCategoria
       ExplicitWidth = 805
       inherited pnlListagemTopo: TPanel
         Width = 805
-        ExplicitWidth = 801
+        ExplicitWidth = 805
       end
       inherited grdListagem: TDBGrid
         Width = 805
@@ -32,6 +32,7 @@ inherited frmCadCategoria: TfrmCadCategoria
     inherited tabManutencao: TTabSheet
       ExplicitWidth = 805
       object edtCategoriaid: TLabeledEdit
+        Tag = 1
         Left = 3
         Top = 40
         Width = 121
@@ -45,7 +46,7 @@ inherited frmCadCategoria: TfrmCadCategoria
         Text = ''
       end
       object edtDescricao: TLabeledEdit
-        Tag = 1
+        Tag = 2
         Left = 0
         Top = 96
         Width = 433
@@ -63,8 +64,8 @@ inherited frmCadCategoria: TfrmCadCategoria
     Width = 813
     ExplicitWidth = 809
     inherited btnFechar: TBitBtn
-      Left = 688
-      ExplicitLeft = 684
+      Left = 684
+      ExplicitLeft = 680
     end
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
