@@ -1,10 +1,12 @@
 inherited frmCadCategoria: TfrmCadCategoria
   Caption = 'Cadastro de Categorias'
+  ClientHeight = 455
   ClientWidth = 813
   ExplicitWidth = 825
   TextHeight = 15
   inherited pgcPrincipal: TPageControl
     Width = 813
+    Height = 407
     ActivePage = tabManutencao
     ExplicitWidth = 809
     inherited tabListagem: TTabSheet
@@ -62,11 +64,13 @@ inherited frmCadCategoria: TfrmCadCategoria
     end
   end
   inherited pnlRodape: TPanel
+    Top = 407
     Width = 813
+    ExplicitTop = 406
     ExplicitWidth = 809
     inherited btnFechar: TBitBtn
-      Left = 684
-      ExplicitLeft = 680
+      Left = 680
+      ExplicitLeft = 676
     end
     inherited btnNavigator: TDBNavigator
       Hints.Strings = ()
