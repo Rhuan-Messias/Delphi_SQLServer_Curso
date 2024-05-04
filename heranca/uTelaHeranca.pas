@@ -246,7 +246,7 @@ begin
     abort;
 
   Try
-    if Gravar(EstadoDoCadastro) then
+    if Gravar(EstadoDoCadastro) then  //Metodo Virtual
     begin
       ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar, btnApagar,
                     btnNavigator, pgcPrincipal, true);

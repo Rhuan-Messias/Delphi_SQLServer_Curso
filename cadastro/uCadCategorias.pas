@@ -17,7 +17,6 @@ type
     edtDescricao: TLabeledEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnGravarClick(Sender: TObject);
   private
     { Private declarations }
     oCategoria:TCategoria;
@@ -37,7 +36,7 @@ implementation
 {$region 'Override'}
 function TfrmCadCategoria.Apagar: Boolean;
 begin
-
+  Result := oCategoria.Apagar;
 end;
 
 function TfrmCadCategoria.Gravar(EstadoDoCadastro: TEstadoDoCadastro): Boolean;
@@ -49,15 +48,7 @@ begin
 
 end;
 {$endregion}
-procedure TfrmCadCategoria.btnGravarClick(Sender: TObject);
-begin
-  oCategoria.codigo := 100;
-  oCategoria.descricao := 'Teste';
 
-  showMessage(oCategoria.descricao);
-  inherited;
-
-end;
 
 procedure TfrmCadCategoria.FormClose(Sender: TObject; var Action: TCloseAction);
 begin

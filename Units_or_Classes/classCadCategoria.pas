@@ -87,8 +87,7 @@ end;
 
 function TCategoria.Gravar: Boolean;
 begin
-  ShowMessage('Gravado');
-  result:=true;
+  result:=false;
 end;
 
 function TCategoria.Selecionar(id: Integer): Boolean;
